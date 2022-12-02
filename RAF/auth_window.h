@@ -1,4 +1,4 @@
-#pragma once
+// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ СЃРѕСЃС‚РѕСЏРЅРёРµ Р°РІС‚РѕСЂРёР·Р°С†РёРё#pragma once
 
 #include <QMainWindow>
 #include "ui_auth_window.h"
@@ -14,12 +14,12 @@ public:
 	QString& getName() { return m_name; }
 	QString& getPass() { return m_password; }
 	bool getAuthState() { return m_successful_auth; }
-	void setAuthState(bool state = false) { m_successful_auth = state; } // устанавливает состояние авторизации
+	void setAuthState(bool state = false) { m_successful_auth = state; } // СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ СЃРѕСЃС‚РѕСЏРЅРёРµ Р°РІС‚РѕСЂРёР·Р°С†РёРё
 private:
 	void nameEdit(QString text) { m_successful_auth = false; m_name = text; }
 	void passEdit(QString text) { m_successful_auth = false; m_password = text; }
-	void authButton(); // нажатие кнопки авторизации
-	void regButton(); // нажатие кнопки регистрации
+	void authButton(); // РЅР°Р¶Р°С‚РёРµ РєРЅРѕРїРєРё Р°РІС‚РѕСЂРёР·Р°С†РёРё
+	void regButton(); // РЅР°Р¶Р°С‚РёРµ РєРЅРѕРїРєРё СЂРµРіРёСЃС‚СЂР°С†РёРё
 private:
 	void closeEvent(QCloseEvent* event);
 private:
@@ -27,6 +27,6 @@ private:
 private:
 	QString m_name;
 	QString m_password;
-	QWidget* m_parent; // указатель на родительский класс (MainWindow)
-	bool m_successful_auth; // состояние авторизации
+	QWidget* m_parent; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЂРѕРґРёС‚РµР»СЊСЃРєРёР№ РєР»Р°СЃСЃ (MainWindow)
+	bool m_successful_auth; // СЃРѕСЃС‚РѕСЏРЅРёРµ Р°РІС‚РѕСЂРёР·Р°С†РёРё
 };
