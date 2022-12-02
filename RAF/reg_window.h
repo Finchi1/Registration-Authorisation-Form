@@ -18,8 +18,8 @@ private:
 	void nameEdit(QString text) { m_name = text; }
 	void passEdit(QString text) { m_password = text; }
 	void passConfEdit(QString text) { m_password_confirm = text; }
-	void authButton(); // нажатие кнопки авторизации
-	void regButton(); // нажатие кнопки регистрации
+	void authButton(); // РЅР°Р¶Р°С‚РёРµ РєРЅРѕРїРєРё Р°РІС‚РѕСЂРёР·Р°С†РёРё
+	void regButton(); // РЅР°Р¶Р°С‚РёРµ РєРЅРѕРїРєРё СЂРµРіРёСЃС‚СЂР°С†РёРё
 private:
 	void closeEvent(QCloseEvent* event);
 private:
@@ -28,5 +28,5 @@ private:
 	QString m_name;
 	QString m_password;
 	QString m_password_confirm;
-	QWidget* m_parent; // указатель на родительский класс (MainWindow)
+	QWidget* m_parent; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЂРѕРґРёС‚РµР»СЊСЃРєРёР№ РєР»Р°СЃСЃ (MainWindow)
 };

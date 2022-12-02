@@ -9,18 +9,18 @@ MainWindow::MainWindow(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	ui.mainLabel->hide(); // прячем label с текстом украинской локализации "Главное окно"
-	m_UAtext = ui.mainLabel->text(); // записываем текст из label в переменную
-	m_TNR45 = QFont("Times New Roman", 45); // задаем шрифт текста основного окна
-	QFontMetrics TNR45_metrics(m_TNR45); // измеритель шрифта для установки минимального размера главного окна
-	// Устанавливаем минимальный размер главного окна
+	ui.mainLabel->hide(); // РїСЂСЏС‡РµРј label СЃ С‚РµРєСЃС‚РѕРј СѓРєСЂР°РёРЅСЃРєРѕР№ Р»РѕРєР°Р»РёР·Р°С†РёРё "Р“Р»Р°РІРЅРѕРµ РѕРєРЅРѕ"
+	m_UAtext = ui.mainLabel->text(); // Р·Р°РїРёСЃС‹РІР°РµРј С‚РµРєСЃС‚ РёР· label РІ РїРµСЂРµРјРµРЅРЅСѓСЋ
+	m_TNR45 = QFont("Times New Roman", 45); // Р·Р°РґР°РµРј С€СЂРёС„С‚ С‚РµРєСЃС‚Р° РѕСЃРЅРѕРІРЅРѕРіРѕ РѕРєРЅР°
+	QFontMetrics TNR45_metrics(m_TNR45); // РёР·РјРµСЂРёС‚РµР»СЊ С€СЂРёС„С‚Р° РґР»СЏ СѓСЃС‚Р°РЅРѕРІРєРё РјРёРЅРёРјР°Р»СЊРЅРѕРіРѕ СЂР°Р·РјРµСЂР° РіР»Р°РІРЅРѕРіРѕ РѕРєРЅР°
+	// РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РјРёРЅРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РіР»Р°РІРЅРѕРіРѕ РѕРєРЅР°
 	ui.centralWidget->setMinimumWidth(TNR45_metrics.horizontalAdvance(m_UAtext));
 	ui.centralWidget->setMinimumHeight(TNR45_metrics.height());
-	connectDB(); // подключаем базу данных
-	createTableDB(m_db.isOpen()); // создаем разметку базы данных
-	m_auth = new AuthWindow(this); // создаем окно авторизации
-	m_reg = new RegWindow(this); // создаем окно регистрации
-	// По умолчанию отображается только окно авторизации
+	connectDB(); // РїРѕРґРєР»СЋС‡Р°РµРј Р±Р°Р·Сѓ РґР°РЅРЅС‹С…
+	createTableDB(m_db.isOpen()); // СЃРѕР·РґР°РµРј СЂР°Р·РјРµС‚РєСѓ Р±Р°Р·С‹ РґР°РЅРЅС‹С…
+	m_auth = new AuthWindow(this); // СЃРѕР·РґР°РµРј РѕРєРЅРѕ Р°РІС‚РѕСЂРёР·Р°С†РёРё
+	m_reg = new RegWindow(this); // СЃРѕР·РґР°РµРј РѕРєРЅРѕ СЂРµРіРёСЃС‚СЂР°С†РёРё
+	// РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РѕС‚РѕР±СЂР°Р¶Р°РµС‚СЃСЏ С‚РѕР»СЊРєРѕ РѕРєРЅРѕ Р°РІС‚РѕСЂРёР·Р°С†РёРё
 	this->hide();
 	m_auth->show(); 
 	m_reg->hide();
@@ -28,8 +28,8 @@ MainWindow::MainWindow(QWidget* parent)
 
 MainWindow::~MainWindow()
 {
-	// Если была успешная авторизация и база данных открыта,
-	// то обновляем в базе данных для авторизированного пользователя значения ширины, высоты и координаты положения основного окна
+	// Р•СЃР»Рё Р±С‹Р»Р° СѓСЃРїРµС€РЅР°СЏ Р°РІС‚РѕСЂРёР·Р°С†РёСЏ Рё Р±Р°Р·Р° РґР°РЅРЅС‹С… РѕС‚РєСЂС‹С‚Р°,
+	// С‚Рѕ РѕР±РЅРѕРІР»СЏРµРј РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С… РґР»СЏ Р°РІС‚РѕСЂРёР·РёСЂРѕРІР°РЅРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Р·РЅР°С‡РµРЅРёСЏ С€РёСЂРёРЅС‹, РІС‹СЃРѕС‚С‹ Рё РєРѕРѕСЂРґРёРЅР°С‚С‹ РїРѕР»РѕР¶РµРЅРёСЏ РѕСЃРЅРѕРІРЅРѕРіРѕ РѕРєРЅР°
 	if (m_auth->getAuthState() && m_db.isOpen())
 	{
 		m_db_input = QString(
@@ -41,13 +41,13 @@ MainWindow::~MainWindow()
 		if (!query.exec(m_db_input))
 			qDebug() << "MainWindow::~MainWindow() - Wrong query - " << query.lastError();
 	}
-	// Закрываем базу данных и очищаем память
+	// Р—Р°РєСЂС‹РІР°РµРј Р±Р°Р·Сѓ РґР°РЅРЅС‹С… Рё РѕС‡РёС‰Р°РµРј РїР°РјСЏС‚СЊ
 	m_db.close();
 	delete m_auth;
 	delete m_reg;
 }
 
-// Рисуем текст главного окна
+// Р РёСЃСѓРµРј С‚РµРєСЃС‚ РіР»Р°РІРЅРѕРіРѕ РѕРєРЅР°
 void MainWindow::drawMainWindowText(QPainter* painter)
 {
 	int w = this->width();
@@ -63,7 +63,7 @@ void MainWindow::drawMainWindowText(QPainter* painter)
 	painter->drawPath(path);
 }
 
-// Подключаем базу данных и открываем ее
+// РџРѕРґРєР»СЋС‡Р°РµРј Р±Р°Р·Сѓ РґР°РЅРЅС‹С… Рё РѕС‚РєСЂС‹РІР°РµРј РµРµ
 bool MainWindow::connectDB()
 {
 	m_db = QSqlDatabase::addDatabase("QSQLITE");
@@ -77,7 +77,7 @@ bool MainWindow::connectDB()
 	return true;
 }
 
-// Создаем разметку базу данных, если еще не создана
+// РЎРѕР·РґР°РµРј СЂР°Р·РјРµС‚РєСѓ Р±Р°Р·Сѓ РґР°РЅРЅС‹С…, РµСЃР»Рё РµС‰Рµ РЅРµ СЃРѕР·РґР°РЅР°
 bool MainWindow::createTableDB(bool is_db_opened)
 {
 	if (!is_db_opened)
@@ -104,20 +104,20 @@ bool MainWindow::createTableDB(bool is_db_opened)
 	return true;
 }
 
-// Обработчик события paintEvent
+// РћР±СЂР°Р±РѕС‚С‡РёРє СЃРѕР±С‹С‚РёСЏ paintEvent
 void MainWindow::paintEvent(QPaintEvent* event)
 {
 	if (this->isHidden())
 		return;
 	Q_UNUSED(event);
 	QPainter painter(this);
-	drawMainWindowText(&painter); // рисуем текст главного окна
+	drawMainWindowText(&painter); // СЂРёСЃСѓРµРј С‚РµРєСЃС‚ РіР»Р°РІРЅРѕРіРѕ РѕРєРЅР°
 }
 
-// Обработчик события showEvent
+// РћР±СЂР°Р±РѕС‚С‡РёРє СЃРѕР±С‹С‚РёСЏ showEvent
 void MainWindow::showEvent(QShowEvent* event)
 {
-	// Если небыло успешной авторизации или база данных закрыта, то прекращаем выполнение функции
+	// Р•СЃР»Рё РЅРµР±С‹Р»Рѕ СѓСЃРїРµС€РЅРѕР№ Р°РІС‚РѕСЂРёР·Р°С†РёРё РёР»Рё Р±Р°Р·Р° РґР°РЅРЅС‹С… Р·Р°РєСЂС‹С‚Р°, С‚Рѕ РїСЂРµРєСЂР°С‰Р°РµРј РІС‹РїРѕР»РЅРµРЅРёРµ С„СѓРЅРєС†РёРё
 	if (!m_auth->getAuthState() || !m_db.isOpen())
 		return;
 	m_db_input = QString(
@@ -131,29 +131,29 @@ void MainWindow::showEvent(QShowEvent* event)
 		qDebug() << "MainWindow::showEvent - Wrong query - " << query.lastError();
 		return;
 	}
-	query.next(); // выбирем все поля базы данных для авторизированного пользователя 
-	record = query.record(); // записываем полученые данные из базы данных в переменную
-	// Приводим данные в удобный формат
+	query.next(); // РІС‹Р±РёСЂРµРј РІСЃРµ РїРѕР»СЏ Р±Р°Р·С‹ РґР°РЅРЅС‹С… РґР»СЏ Р°РІС‚РѕСЂРёР·РёСЂРѕРІР°РЅРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ 
+	record = query.record(); // Р·Р°РїРёСЃС‹РІР°РµРј РїРѕР»СѓС‡РµРЅС‹Рµ РґР°РЅРЅС‹Рµ РёР· Р±Р°Р·С‹ РґР°РЅРЅС‹С… РІ РїРµСЂРµРјРµРЅРЅСѓСЋ
+	// РџСЂРёРІРѕРґРёРј РґР°РЅРЅС‹Рµ РІ СѓРґРѕР±РЅС‹Р№ С„РѕСЂРјР°С‚
 	int x = record.field("x").value().toInt();
 	int y = record.field("y").value().toInt();
 	int w = record.field("width").value().toInt();
 	int h = record.field("height").value().toInt();
 	qDebug() << "MainWindow::showEvent - x = " << x << ", y = " << y << ", whidth = " << w << ", height = " << h;
-	// Устанавливаем координаты и размер главного окна согласно данным в базе для авторизированного пользователя
+	// РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РєРѕРѕСЂРґРёРЅР°С‚С‹ Рё СЂР°Р·РјРµСЂ РіР»Р°РІРЅРѕРіРѕ РѕРєРЅР° СЃРѕРіР»Р°СЃРЅРѕ РґР°РЅРЅС‹Рј РІ Р±Р°Р·Рµ РґР»СЏ Р°РІС‚РѕСЂРёР·РёСЂРѕРІР°РЅРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 	this->move(x, y);
 	this->resize(w, h);
 }
 
-// Обработчик события авторизации
+// РћР±СЂР°Р±РѕС‚С‡РёРє СЃРѕР±С‹С‚РёСЏ Р°РІС‚РѕСЂРёР·Р°С†РёРё
 void MainWindow::authorisationUser()
 {
-	// Если база данных не открыта, то сразу выходим из функции
+	// Р•СЃР»Рё Р±Р°Р·Р° РґР°РЅРЅС‹С… РЅРµ РѕС‚РєСЂС‹С‚Р°, С‚Рѕ СЃСЂР°Р·Сѓ РІС‹С…РѕРґРёРј РёР· С„СѓРЅРєС†РёРё
 	if (!m_db.isOpen())
 	{
 		qDebug() << "MainWindow::registrationUser() - db is not opened";
 		return;
 	}
-	// Получаем данные авторизации
+	// РџРѕР»СѓС‡Р°РµРј РґР°РЅРЅС‹Рµ Р°РІС‚РѕСЂРёР·Р°С†РёРё
 	QString name = m_auth->getName();
 	QString password = m_auth->getPass();
 	QSqlQuery query;
@@ -164,8 +164,8 @@ void MainWindow::authorisationUser()
 	if (!query.exec(m_db_input))
 		qDebug() << "MainWindow::registrationUser() - Wrong query - " << query.lastError();
 	QMessageBox wrong_msgbox(this);
-	// Проверяем соответствие имени пользователя и пароля записи в базе данных, если нет соответствия, 
-	// то выводим QMessageBox с сообщением и прекращаем выполнения функции
+	// РџСЂРѕРІРµСЂСЏРµРј СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРµ РёРјРµРЅРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Рё РїР°СЂРѕР»СЏ Р·Р°РїРёСЃРё РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С…, РµСЃР»Рё РЅРµС‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ, 
+	// С‚Рѕ РІС‹РІРѕРґРёРј QMessageBox СЃ СЃРѕРѕР±С‰РµРЅРёРµРј Рё РїСЂРµРєСЂР°С‰Р°РµРј РІС‹РїРѕР»РЅРµРЅРёСЏ С„СѓРЅРєС†РёРё
 	if (!query.next())
 	{
 		qDebug() << "MainWindow::registrationUser() - Wrong username or password";
@@ -174,22 +174,22 @@ void MainWindow::authorisationUser()
 		wrong_msgbox.exec();
 		return;
 	}
-	// Авторизация успешна
-	m_auth->setAuthState(true); // передаем данные об успешной авторизации объекту формы авторизации
-	m_auth->hide(); // скрываем окно авторизации
-	this->show(); // показываем основное окно
+	// РђРІС‚РѕСЂРёР·Р°С†РёСЏ СѓСЃРїРµС€РЅР°
+	m_auth->setAuthState(true); // РїРµСЂРµРґР°РµРј РґР°РЅРЅС‹Рµ РѕР± СѓСЃРїРµС€РЅРѕР№ Р°РІС‚РѕСЂРёР·Р°С†РёРё РѕР±СЉРµРєС‚Сѓ С„РѕСЂРјС‹ Р°РІС‚РѕСЂРёР·Р°С†РёРё
+	m_auth->hide(); // СЃРєСЂС‹РІР°РµРј РѕРєРЅРѕ Р°РІС‚РѕСЂРёР·Р°С†РёРё
+	this->show(); // РїРѕРєР°Р·С‹РІР°РµРј РѕСЃРЅРѕРІРЅРѕРµ РѕРєРЅРѕ
 }
 
-// Обработчик события регистрации пользователя
+// РћР±СЂР°Р±РѕС‚С‡РёРє СЃРѕР±С‹С‚РёСЏ СЂРµРіРёСЃС‚СЂР°С†РёРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 void MainWindow::registrationUser()
 {
-	// Если база данных не открыта, то сразу выходим из функции
+	// Р•СЃР»Рё Р±Р°Р·Р° РґР°РЅРЅС‹С… РЅРµ РѕС‚РєСЂС‹С‚Р°, С‚Рѕ СЃСЂР°Р·Сѓ РІС‹С…РѕРґРёРј РёР· С„СѓРЅРєС†РёРё
 	if (!m_db.isOpen())
 	{
 		qDebug() << "MainWindow::registrationUser() - db is not opened";
 		return;
 	}
-	// Получаем данные регистрации
+	// РџРѕР»СѓС‡Р°РµРј РґР°РЅРЅС‹Рµ СЂРµРіРёСЃС‚СЂР°С†РёРё
 	QString name = m_reg->getName();
 	QString password = m_reg->getPass();
 	QString password_confirm = m_reg->getPassConf();
@@ -201,9 +201,9 @@ void MainWindow::registrationUser()
 	);
 	if (!query.exec(m_db_input))
 		qDebug() << "MainWindow::registrationUser() -  Wrong query - " << query.lastError();
-	query.last(); // получаем последний порядковый номер пользователя в базе данных
-	record = query.record(); // записываем данные в переменную
-	int last_number = record.field("number").value().toInt(); // приводим данные в удобную форму (int)
+	query.last(); // РїРѕР»СѓС‡Р°РµРј РїРѕСЃР»РµРґРЅРёР№ РїРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С…
+	record = query.record(); // Р·Р°РїРёСЃС‹РІР°РµРј РґР°РЅРЅС‹Рµ РІ РїРµСЂРµРјРµРЅРЅСѓСЋ
+	int last_number = record.field("number").value().toInt(); // РїСЂРёРІРѕРґРёРј РґР°РЅРЅС‹Рµ РІ СѓРґРѕР±РЅСѓСЋ С„РѕСЂРјСѓ (int)
 	qDebug() << "MainWindow::registrationUser() - Last number is " << last_number;
 	m_db_input = QString(
 		" SELECT name FROM userlist "
@@ -211,11 +211,11 @@ void MainWindow::registrationUser()
 	).arg(name);
 	if (!query.exec(m_db_input))
 		qDebug() << "MainWindow::registrationUser() -  Wrong query - " << query.lastError();
-	query.next(); // ищем пользователя с указанным в регистрации именем в базе
-	record = query.record(); // записываем данные в переменную
-	QString temp_name = record.field("name").value().toString(); // приводим данные в удобную форму (Qstring)
+	query.next(); // РёС‰РµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ СЃ СѓРєР°Р·Р°РЅРЅС‹Рј РІ СЂРµРіРёСЃС‚СЂР°С†РёРё РёРјРµРЅРµРј РІ Р±Р°Р·Рµ
+	record = query.record(); // Р·Р°РїРёСЃС‹РІР°РµРј РґР°РЅРЅС‹Рµ РІ РїРµСЂРµРјРµРЅРЅСѓСЋ
+	QString temp_name = record.field("name").value().toString(); // РїСЂРёРІРѕРґРёРј РґР°РЅРЅС‹Рµ РІ СѓРґРѕР±РЅСѓСЋ С„РѕСЂРјСѓ (Qstring)
 	QMessageBox existed_msgbox(this);
-	// Если пользователь с таким именем уже существует, то выводим QMessageBox и прекращаем выполнения функции
+	// Р•СЃР»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СЃ С‚Р°РєРёРј РёРјРµРЅРµРј СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚, С‚Рѕ РІС‹РІРѕРґРёРј QMessageBox Рё РїСЂРµРєСЂР°С‰Р°РµРј РІС‹РїРѕР»РЅРµРЅРёСЏ С„СѓРЅРєС†РёРё
 	if (name == temp_name)
 	{
 		qDebug() << "Username " << name << " already exist";
@@ -227,7 +227,7 @@ void MainWindow::registrationUser()
 		return;
 	}
 	QMessageBox wrong_msgbox(this);
-	// Если регистрация успешна, то записываем данные в базу данных и показываем только окно авторизации
+	// Р•СЃР»Рё СЂРµРіРёСЃС‚СЂР°С†РёСЏ СѓСЃРїРµС€РЅР°, С‚Рѕ Р·Р°РїРёСЃС‹РІР°РµРј РґР°РЅРЅС‹Рµ РІ Р±Р°Р·Сѓ РґР°РЅРЅС‹С… Рё РїРѕРєР°Р·С‹РІР°РµРј С‚РѕР»СЊРєРѕ РѕРєРЅРѕ Р°РІС‚РѕСЂРёР·Р°С†РёРё
 	if (name.length() >= 4 && name.length() < 20 && password.length() >= 4 && password.length() < 20 && password == password_confirm)
 	{
 		m_db_input = QString(
@@ -243,7 +243,7 @@ void MainWindow::registrationUser()
 		m_auth->show();
 		return;
 	}
-	// Если имя или пароль не соответсвует требованиям, то выводим QMessageBox и прекращаем выполнения функции.
+	// Р•СЃР»Рё РёРјСЏ РёР»Рё РїР°СЂРѕР»СЊ РЅРµ СЃРѕРѕС‚РІРµС‚СЃРІСѓРµС‚ С‚СЂРµР±РѕРІР°РЅРёСЏРј, С‚Рѕ РІС‹РІРѕРґРёРј QMessageBox Рё РїСЂРµРєСЂР°С‰Р°РµРј РІС‹РїРѕР»РЅРµРЅРёСЏ С„СѓРЅРєС†РёРё.
 	else if (name.length() < 4 || name.length() >= 20)
 	{
 		qDebug() << "MainWindow::registrationUser - Username must has betwen 4 and 20 characters";

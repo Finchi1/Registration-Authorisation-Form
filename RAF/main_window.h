@@ -16,24 +16,24 @@ public:
 private:
     Ui::MainWindowClass ui;
 private:
-    void drawMainWindowText(QPainter* painter); // рисует текст главного окна
-    bool connectDB(); // подключаем и открываем базу данных
-    bool createTableDB(bool is_db_opened); // создаем разметку базы данных
+    void drawMainWindowText(QPainter* painter); // СЂРёСЃСѓРµС‚ С‚РµРєСЃС‚ РіР»Р°РІРЅРѕРіРѕ РѕРєРЅР°
+    bool connectDB(); // РїРѕРґРєР»СЋС‡Р°РµРј Рё РѕС‚РєСЂС‹РІР°РµРј Р±Р°Р·Сѓ РґР°РЅРЅС‹С…
+    bool createTableDB(bool is_db_opened); // СЃРѕР·РґР°РµРј СЂР°Р·РјРµС‚РєСѓ Р±Р°Р·С‹ РґР°РЅРЅС‹С…
 private:
     void paintEvent(QPaintEvent* event);
     void showEvent(QShowEvent* event);
 private:
-    QString m_UAtext; // текст "Главное окно"
-    QFont m_TNR45; // шрифт для текста "Главное окно"
+    QString m_UAtext; // С‚РµРєСЃС‚ "Р“Р»Р°РІРЅРѕРµ РѕРєРЅРѕ"
+    QFont m_TNR45; // С€СЂРёС„С‚ РґР»СЏ С‚РµРєСЃС‚Р° "Р“Р»Р°РІРЅРѕРµ РѕРєРЅРѕ"
 private:
-    QString m_db_input; // строка для записи запросов в базу данных
-    QSqlDatabase m_db; // база данных
+    QString m_db_input; // СЃС‚СЂРѕРєР° РґР»СЏ Р·Р°РїРёСЃРё Р·Р°РїСЂРѕСЃРѕРІ РІ Р±Р°Р·Сѓ РґР°РЅРЅС‹С…
+    QSqlDatabase m_db; // Р±Р°Р·Р° РґР°РЅРЅС‹С…
 private:
-    AuthWindow* m_auth; // окно авторизации
-    RegWindow* m_reg; // окно регистрации
+    AuthWindow* m_auth; // РѕРєРЅРѕ Р°РІС‚РѕСЂРёР·Р°С†РёРё
+    RegWindow* m_reg; // РѕРєРЅРѕ СЂРµРіРёСЃС‚СЂР°С†РёРё
 public:
     AuthWindow* getAuthWindow() { return m_auth; }
     RegWindow* getRegWindow() { return m_reg; }
-    void authorisationUser(); // обработчик события авторизации
-    void registrationUser(); // обработчик события регистрации
+    void authorisationUser(); // РѕР±СЂР°Р±РѕС‚С‡РёРє СЃРѕР±С‹С‚РёСЏ Р°РІС‚РѕСЂРёР·Р°С†РёРё
+    void registrationUser(); // РѕР±СЂР°Р±РѕС‚С‡РёРє СЃРѕР±С‹С‚РёСЏ СЂРµРіРёСЃС‚СЂР°С†РёРё
 };

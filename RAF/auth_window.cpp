@@ -6,8 +6,8 @@ AuthWindow::AuthWindow(QWidget *parent)
 	: QMainWindow(parent), m_parent(parent), m_successful_auth(false)
 {
 	ui.setupUi(this);
-	this->setFixedSize(this->size()); // устанавливем фиксированный размер окна
-	// Соединяем события редактированя полей и нажатия кнопок с обработчиками
+	this->setFixedSize(this->size()); // СѓСЃС‚Р°РЅР°РІР»РёРІРµРј С„РёРєСЃРёСЂРѕРІР°РЅРЅС‹Р№ СЂР°Р·РјРµСЂ РѕРєРЅР°
+	// РЎРѕРµРґРёРЅСЏРµРј СЃРѕР±С‹С‚РёСЏ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅСЏ РїРѕР»РµР№ Рё РЅР°Р¶Р°С‚РёСЏ РєРЅРѕРїРѕРє СЃ РѕР±СЂР°Р±РѕС‚С‡РёРєР°РјРё
 	connect(ui.nameEdit, &QLineEdit::textEdited, this, &AuthWindow::nameEdit);
 	connect(ui.passEdit, &QLineEdit::textEdited, this, &AuthWindow::passEdit);
 	connect(ui.authButton, &QPushButton::clicked, this, &AuthWindow::authButton);
@@ -17,27 +17,27 @@ AuthWindow::AuthWindow(QWidget *parent)
 AuthWindow::~AuthWindow()
 {}
 
-// При нажатии на кнопку авторизации, запускаем соответствующий метод класса MainWindow
+// РџСЂРё РЅР°Р¶Р°С‚РёРё РЅР° РєРЅРѕРїРєСѓ Р°РІС‚РѕСЂРёР·Р°С†РёРё, Р·Р°РїСѓСЃРєР°РµРј СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёР№ РјРµС‚РѕРґ РєР»Р°СЃСЃР° MainWindow
 void AuthWindow::authButton()
 {
 	m_successful_auth = false;
-	MainWindow* main = dynamic_cast<MainWindow*>(m_parent); // выполняем динамическое преобразования указателя родительского класса для использования методов MainWindow
+	MainWindow* main = dynamic_cast<MainWindow*>(m_parent); // РІС‹РїРѕР»РЅСЏРµРј РґРёРЅР°РјРёС‡РµСЃРєРѕРµ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ СѓРєР°Р·Р°С‚РµР»СЏ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ РєР»Р°СЃСЃР° РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РјРµС‚РѕРґРѕРІ MainWindow
 	main->authorisationUser();
 }
 
-// При нажатии на кнопку регистрации показываем форму регистрации, а форму авторизации скрываем
+// РџСЂРё РЅР°Р¶Р°С‚РёРё РЅР° РєРЅРѕРїРєСѓ СЂРµРіРёСЃС‚СЂР°С†РёРё РїРѕРєР°Р·С‹РІР°РµРј С„РѕСЂРјСѓ СЂРµРіРёСЃС‚СЂР°С†РёРё, Р° С„РѕСЂРјСѓ Р°РІС‚РѕСЂРёР·Р°С†РёРё СЃРєСЂС‹РІР°РµРј
 void AuthWindow::regButton()
 {
 	m_successful_auth = false;
-	MainWindow* main = dynamic_cast<MainWindow*>(m_parent); // выполняем динамическое преобразования указателя родительского класса для использования методов MainWindow
+	MainWindow* main = dynamic_cast<MainWindow*>(m_parent); // РІС‹РїРѕР»РЅСЏРµРј РґРёРЅР°РјРёС‡РµСЃРєРѕРµ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ СѓРєР°Р·Р°С‚РµР»СЏ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ РєР»Р°СЃСЃР° РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РјРµС‚РѕРґРѕРІ MainWindow
 	RegWindow* reg = main->getRegWindow();
 	reg->show();
 	this->hide();
 }
 
-// При закрытии формы авторизации выходим из приложения
+// РџСЂРё Р·Р°РєСЂС‹С‚РёРё С„РѕСЂРјС‹ Р°РІС‚РѕСЂРёР·Р°С†РёРё РІС‹С…РѕРґРёРј РёР· РїСЂРёР»РѕР¶РµРЅРёСЏ
 void AuthWindow::closeEvent(QCloseEvent* event)
 {
 	Q_UNUSED(event);
-	qApp->quit(); // выходим из приложения при закрытии окна авторизации
+	qApp->quit(); // РІС‹С…РѕРґРёРј РёР· РїСЂРёР»РѕР¶РµРЅРёСЏ РїСЂРё Р·Р°РєСЂС‹С‚РёРё РѕРєРЅР° Р°РІС‚РѕСЂРёР·Р°С†РёРё
 }
