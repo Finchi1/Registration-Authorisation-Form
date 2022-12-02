@@ -243,7 +243,7 @@ void MainWindow::registrationUser()
 		m_auth->show();
 		return;
 	}
-	// Если имя или пароль не соответсвует требованиям, то выводим QMessageBox и прекращаем выполнения функции
+	// Если имя или пароль не соответсвует требованиям, то выводим QMessageBox и прекращаем выполнения функции.
 	else if (name.length() < 4 || name.length() >= 20)
 	{
 		qDebug() << "MainWindow::registrationUser - Username must has betwen 4 and 20 characters";
